@@ -16,7 +16,7 @@ VITE_Token=${your api key}
 新增代理伺服器
 
 ```
-VITE_Proxy=https://cors-anwhere-nick12003.zeabur.app/
+VITE_Proxy=${proxy_url}
 ```
 
 
