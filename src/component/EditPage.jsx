@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useLoaderData, useParams, redirect } from "react-router-dom";
+import { Link, useLoaderData, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, FastField } from "formik";
 import * as yup from "yup";
@@ -25,6 +25,7 @@ const { fetchOne, createOne, updateOne, resetData } = editAction;
 
 const EditPage = ({ pageEdit }) => {
   const { id } = useParams();
+  const navigate = useNavigate();
   // const loaderData = useLoaderData();
   const { data, newId } = useSelector((state) => state.edit);
   const dispatch = useDispatch();
@@ -40,8 +41,7 @@ const EditPage = ({ pageEdit }) => {
     if (pageEdit) {
       dispatch(updateOne({ id, data: values }));
     } else {
-      dispatch(createOne({ data: values }));
-      redirect("/");
+      dispatch(createOne({ data: values, navigate }));
     }
   };
 

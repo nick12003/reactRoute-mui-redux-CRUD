@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "./component/Layout";
 import ListPage from "./component/ListPage";
 import EditPage from "./component/EditPage";
-
+import NotFound from "./component/NotFound";
 // import { getList, getOne } from "./services";
 
 const router = createBrowserRouter([
@@ -29,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/new",
         element: <EditPage pageNew />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },

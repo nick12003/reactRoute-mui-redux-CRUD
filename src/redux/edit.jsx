@@ -11,7 +11,6 @@ export const editSlice = createSlice({
       completed: false,
     },
     loading: false,
-    newId: "",
   },
   reducers: {
     setData: (state, { payload }) => {
@@ -19,9 +18,6 @@ export const editSlice = createSlice({
     },
     setLoading: (state, { payload }) => {
       return { ...state, loading: payload.loading };
-    },
-    setNewId: (state, { payload }) => {
-      return { ...state, newId: payload.id };
     },
     resetData: (state) => {
       return {
@@ -35,7 +31,7 @@ export const editSlice = createSlice({
   },
 });
 
-const { setLoading, setData, resetData, setNewId } = editSlice.actions;
+const { setLoading, setData, resetData } = editSlice.actions;
 export const editAction = {
   fetchOne: createAction("edit/fetchOne"),
   updateOne: createAction("edit/updateOne"),
@@ -59,13 +55,13 @@ function* updateOne({ payload: { id, data } }) {
   yield put(setLoading({ loading: false }));
 }
 
-function* createOne({ payload: { data } }) {
+function* createOne({ payload: { data, navigate } }) {
   yield put(setLoading({ loading: true }));
   // yield call(create, [data]);
   const result = yield call(create, [data]);
-  // yield put(setData({ data: result.items[0] }));
-  yield put(setNewId({ id: result.items[0]._uuid }));
+  yield put(setData({ data: result.items[0] }));
   yield put(setLoading({ loading: false }));
+  navigate(`/edit/${result.items[0]._uuid}`);
 }
 
 function* editSaga() {
